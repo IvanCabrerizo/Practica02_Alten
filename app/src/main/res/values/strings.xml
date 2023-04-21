@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Practica02</string>
+    <string name="student_avatar_description">Imagen estudiante</string>
+    <string name="name_tag_label">Nombre</string>
+    <string name="surname_tag_label">Apellidos</string>
+    <string name="mail_tag_label">Email</string>
+    <string name="city_tag_label">Ciudad</string>
+    <string name="center_tag_label">Centro</string>
+    <string name="tutor_tag_label">Tutor</string>
+    <string name="calendar_student_description">Calendario estudiante</string>
 </resources>
