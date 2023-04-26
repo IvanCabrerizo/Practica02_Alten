@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="guideline_margin">8dp</dimen>
+    <dimen name="half_bias">0.5</dimen>
+    <dimen name="margin_start_label">16dp</dimen>
+    <dimen name="text_size_label">16sp</dimen>
+    <dimen name="avatar_width">150dp</dimen>
+    <dimen name="avatar_height">150dp</dimen>
+    <dimen name="avatar_bottom_margin">50dp</dimen>
+</resources>

@@ -13,7 +13,7 @@ class StudentsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        binding.pager.adapter = adapter
+        binding.setupAdapter()
         tabConfigure()
     }
 
@@ -25,5 +25,9 @@ class StudentsActivity : AppCompatActivity() {
             tab.text = studentNamePosition
         }
         tabLayoutMediator.attach()
+    }
+
+    private fun ActivityStudentsBinding.setupAdapter(){
+        pager.adapter = adapter
     }
 }
