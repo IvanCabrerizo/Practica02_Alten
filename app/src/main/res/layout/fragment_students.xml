@@ -7,5 +7,81 @@
     tools:context=".StudentsFragment">
 
 
+    <LinearLayout
+        android:id="@+id/fragmentStudentLabelsContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintTop_toTopOf="parent">
 
+        <ImageView
+            android:id="@+id/fragmentStudentImgAvatar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:contentDescription="Student avatar"
+            android:src="@drawable/ic_launcher_background" />
+
+        <TextView
+            android:id="@+id/fragmentStudentLabelNameTag"
+            style="@style/labelStudentFragmentTagStyle"
+            tools:text="Hello" />
+
+        <TextView
+            android:id="@+id/fragmentStudentLabelName"
+            style="@style/labelStudentFragmentStyle"
+            tools:text="Hello" />
+
+        <TextView
+            android:id="@+id/fragmentStudentLabelLastNameTag"
+            style="@style/labelStudentFragmentTagStyle"
+            tools:text="Hello" />
+
+        <TextView
+            android:id="@+id/fragmentStudentLabelLastName"
+            style="@style/labelStudentFragmentStyle"
+            tools:text="Hello" />
+
+        <TextView
+            android:id="@+id/fragmentStudentLabelMailTag"
+            style="@style/labelStudentFragmentTagStyle"
+            tools:text="Hello" />
+
+        <TextView
+            android:id="@+id/fragmentStudentLabelMail"
+            style="@style/labelStudentFragmentStyle"
+            tools:text="Hello" />
+
+        <TextView
+            android:id="@+id/fragmentStudentLabelCityTag"
+            style="@style/labelStudentFragmentTagStyle"
+            tools:text="Hello" />
+
+        <TextView
+            android:id="@+id/fragmentStudentLabelCity"
+            style="@style/labelStudentFragmentStyle"
+            tools:text="Hello" />
+
+        <TextView
+            android:id="@+id/fragmentStudentLabelStudyCenterTag"
+            style="@style/labelStudentFragmentTagStyle"
+            tools:text="Hello" />
+
+        <TextView
+            android:id="@+id/fragmentStudentLabelStudyCenter"
+            style="@style/labelStudentFragmentStyle"
+            tools:text="Hello" />
+
+        <TextView
+            android:id="@+id/fragmentStudentLabelTutorTag"
+            style="@style/labelStudentFragmentTagStyle"
+            tools:text="Hello" />
+
+        <TextView
+            android:id="@+id/fragmentStudentLabelTutorName"
+            style="@style/labelStudentFragmentStyle"
+            tools:text="Hello" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

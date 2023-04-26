@@ -1,14 +1,16 @@
 package com.example.practica02
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.fragment.app.Fragment
+import com.example.practica02.databinding.FragmentStudentsBinding
 
 class StudentsFragment : Fragment() {
-    companion object{
+    private val binding by lazy { FragmentStudentsBinding.inflate(layoutInflater) }
+
+    companion object {
         private const val ARG_OBJECT = "object"
     }
 
@@ -17,14 +19,28 @@ class StudentsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.fragment_students, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         arguments?.takeIf { it.containsKey(ARG_OBJECT) }?.apply {
-            val textView: TextView = view.findViewById(R.id.text)
-            textView.text = getInt(ARG_OBJECT).toString()
+            injectData(getInt(ARG_OBJECT))
         }
+    }
+
+    private fun injectData(position: Int) {
+        binding.fragmentStudentLabelName.text = studentList[position].name
+        binding.fragmentStudentLabelLastName.text = studentList[position].surname
+        binding.fragmentStudentLabelMail.text = studentList[position].mail
+        binding.fragmentStudentLabelCity.text = studentList[position].city
+        binding.fragmentStudentLabelStudyCenter.text = studentList[position].studyCenter
+        binding.fragmentStudentLabelTutorName.text = getTutorData(studentList[position].tutorId)
+    }
+
+    private fun getTutorData(tutorId: Int): String {
+        return (tutorList.find { it.id == tutorId }?.name
+            ?: "") + " " + (tutorList.find { it.id == tutorId }?.surname
+            ?: "")
     }
 
 }

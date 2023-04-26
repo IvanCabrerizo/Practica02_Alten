@@ -14,10 +14,16 @@ class StudentsActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.pager.adapter = adapter
-        val tabLayoutMediator = TabLayoutMediator(binding.tabLayout, binding.pager,
-            TabLayoutMediator.TabConfigurationStrategy { tab, position ->
-                tab.text = position.toString()
-            })
+        tabConfigure()
+    }
+
+    private fun tabConfigure() {
+        val tabLayoutMediator = TabLayoutMediator(binding.tabLayout, binding.pager
+        ) { tab, position ->
+            val studentNamePosition =
+                "${studentList[position].name} ${studentList[position].surname}"
+            tab.text = studentNamePosition
+        }
         tabLayoutMediator.attach()
     }
 }

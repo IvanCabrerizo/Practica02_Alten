@@ -5,8 +5,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
-class StudentsViewPagerAdapter (fragment: FragmentActivity) : FragmentStateAdapter(fragment) {
-    companion object{
+class StudentsViewPagerAdapter(fragment: FragmentActivity) : FragmentStateAdapter(fragment) {
+    companion object {
         private const val ARG_OBJECT = "object"
     }
 
