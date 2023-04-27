@@ -1,5 +1,6 @@
 package com.example.practica02
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.practica02.databinding.ActivityStudentsBinding
@@ -15,6 +16,10 @@ class StudentsActivity : AppCompatActivity() {
 
         binding.setupAdapter()
         tabConfigure()
+        binding.fragmentStudentBtnCalendar.setOnClickListener{
+            val intent = Intent(this, AttendanceActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun tabConfigure() {
