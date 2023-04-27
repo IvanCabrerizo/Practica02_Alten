@@ -11,7 +11,8 @@ class AttendanceViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     fun render(date: Dates.Month){
         with(binding) {
-            textView.text = date.name
+            textView1.text = date.name
+            textView2.text = date.days.joinToString("\n") { "${it.name} ${it.number}" }
         }
     }
 }
