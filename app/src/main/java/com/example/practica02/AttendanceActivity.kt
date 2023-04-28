@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.practica02.adapter.AttendanceRecyclerAdapter
 import com.example.practica02.databinding.ActivityAttendanceBinding
-import com.example.practica02.repository.dateList
+import com.example.practica02.repository.dayList
 
 class AttendanceActivity : AppCompatActivity() {
 
@@ -20,6 +20,6 @@ class AttendanceActivity : AppCompatActivity() {
     fun initRecyclerView() {
         val recyclerView = binding.AttendanceListCalendar
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = AttendanceRecyclerAdapter(dateList)
+        recyclerView.adapter = AttendanceRecyclerAdapter(dayList)
     }
 }

@@ -1,19 +1,16 @@
 package com.example.practica02.repository
 
-import com.example.practica02.model.Dates
+import com.example.practica02.model.Day
 import java.util.Calendar
 
-val dateList = mutableListOf(
-    Dates.Month("Abril", getMonth(2023, 4, 1)),
-    Dates.Month("Mayo", getMonth(2023, 5, 1)),
-    Dates.Month("Junio", getMonth(2023, 6, 1)),
-)
+val dayList =
+    getDaysFromMonth(2023, 4, 1) + getDaysFromMonth(2023, 5, 1) + getDaysFromMonth(2023, 6, 1)
 
-fun getMonth(year: Int, numberMonth: Int, initialDay: Int): List<Dates.Day> {
+fun getDaysFromMonth(year: Int, numberMonth: Int, initialDay: Int): List<Day> {
     val calendar = Calendar.getInstance()
     calendar.set(year, numberMonth, initialDay)
 
-    val days = mutableListOf<Dates.Day>()
+    val days = mutableListOf<Day>()
 
     while (calendar.get(Calendar.MONTH) == numberMonth) {
         if (calendar.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY && calendar.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY) {
@@ -25,8 +22,23 @@ fun getMonth(year: Int, numberMonth: Int, initialDay: Int): List<Dates.Day> {
                 Calendar.FRIDAY -> "Viernes"
                 else -> ""
             }
+            val monthName = when (calendar.get(Calendar.MONTH)) {
+                Calendar.JANUARY -> "Enero"
+                Calendar.FEBRUARY -> "Febrero"
+                Calendar.MARCH -> "Marzo"
+                Calendar.APRIL -> "Abril"
+                Calendar.MAY -> "Mayo"
+                Calendar.JUNE -> "Junio"
+                Calendar.JULY -> "Julio"
+                Calendar.AUGUST -> "Agosto"
+                Calendar.SEPTEMBER -> "Septiembre"
+                Calendar.OCTOBER -> "Octubre"
+                Calendar.NOVEMBER -> "Noviembre"
+                Calendar.DECEMBER -> "Diciembre"
+                else -> ""
+            }
             val numberDay = calendar.get(Calendar.DAY_OF_MONTH)
-            days.add(Dates.Day(dayName, numberDay, false, false, false))
+            days.add(Day(dayName, numberDay, monthName, false, false, false))
         }
         calendar.add(Calendar.DAY_OF_MONTH, 1)
     }
