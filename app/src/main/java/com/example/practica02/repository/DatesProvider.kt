@@ -1,46 +1,182 @@
 package com.example.practica02.repository
 
-import com.example.practica02.model.Day
+import com.example.practica02.model.Attendance
+import com.example.practica02.model.AttendanceInfo
+import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Locale
 
-val dayList =
-    getDaysFromMonth(2023, 4, 1) + getDaysFromMonth(2023, 5, 1) + getDaysFromMonth(2023, 6, 1)
 
-fun getDaysFromMonth(year: Int, numberMonth: Int, initialDay: Int): List<Day> {
-    val calendar = Calendar.getInstance()
-    calendar.set(year, numberMonth, initialDay)
+val attendancesCadiz = listOf(
+    Attendance("27/3/2023", "Centro"),
+    Attendance("28/3/2023", "Centro"),
+    Attendance("29/3/2023", "Centro"),
+    Attendance("30/3/2023", "Centro"),
+    Attendance("31/3/2023", "Centro"),
+    Attendance("03/04/2023", "Centro"),
+    Attendance("04/04/2023", "Centro"),
+    Attendance("05/04/2023", "Centro"),
+    Attendance("06/04/2023", "Centro"),
+    Attendance("07/04/2023", "Centro"),
+    Attendance("10/04/2023", "Centro"),
+    Attendance("11/04/2023", "Centro"),
+    Attendance("12/04/2023", "Centro"),
+    Attendance("13/04/2023", "Centro"),
+    Attendance("14/04/2023", "Centro"),
+    Attendance("17/04/2023", "Centro"),
+    Attendance("18/04/2023", "Centro"),
+    Attendance("19/04/2023", "Centro"),
+    Attendance("20/04/2023", "Centro"),
+    Attendance("21/04/2023", "Centro"),
+    Attendance("24/04/2023", "Centro"),
+    Attendance("25/04/2023", "Centro"),
+    Attendance("26/04/2023", "Centro"),
+    Attendance("27/04/2023", "Centro"),
+    Attendance("28/04/2023", "Centro"),
+    Attendance("02/05/2023", "Centro"),
+    Attendance("03/05/2023", "Centro"),
+    Attendance("04/05/2023", "Centro"),
+    Attendance("05/05/2023", "Centro"),
+    Attendance("08/05/2023", "Centro"),
+    Attendance("09/05/2023", "Centro"),
+    Attendance("10/05/2023", "Centro"),
+    Attendance("11/05/2023", "Centro"),
+    Attendance("12/05/2023", "Centro"),
+    Attendance("15/05/2023", "Centro"),
+    Attendance("16/05/2023", "Centro"),
+    Attendance("17/05/2023", "Centro"),
+    Attendance("18/05/2023", "Centro"),
+    Attendance("19/05/2023", "Centro"),
+    Attendance("22/05/2023", "Centro"),
+    Attendance("23/05/2023", "Centro"),
+    Attendance("24/05/2023", "Centro"),
+    Attendance("25/05/2023", "Centro"),
+    Attendance("26/05/2023", "Centro"),
+    Attendance("29/05/2023", "Centro"),
+    Attendance("30/05/2023", "Centro"),
+    Attendance("31/05/2023", "Centro"),
+    Attendance("01/06/2023", "Centro"),
+    Attendance("02/06/2023", "Centro"),
+    Attendance("05/06/2023", "Centro"),
+    Attendance("06/06/2023", "Centro"),
+    Attendance("07/06/2023", "Centro"),
+    Attendance("08/06/2023", "Centro"),
+    Attendance("09/06/2023", "Centro"),
+    Attendance("12/06/2023", "Centro"),
+    Attendance("13/06/2023", "Centro"),
+    Attendance("14/06/2023", "Centro"),
+    Attendance("15/06/2023", "Centro"),
+    Attendance("16/06/2023", "Centro"),
+)
 
-    val days = mutableListOf<Day>()
+val attendancesSevilla = listOf(
+    Attendance("27/3/2023", "Centro"),
+    Attendance("28/3/2023", "Centro"),
+    Attendance("29/3/2023", "Centro"),
+    Attendance("30/3/2023", "Centro"),
+    Attendance("31/3/2023", "Centro"),
+    Attendance("03/04/2023", "Centro"),
+    Attendance("04/04/2023", "Centro"),
+    Attendance("05/04/2023", "Centro"),
+    Attendance("06/04/2023", "Centro"),
+    Attendance("07/04/2023", "Centro"),
+    Attendance("10/04/2023", "Centro"),
+    Attendance("11/04/2023", "Centro"),
+    Attendance("12/04/2023", "Centro"),
+    Attendance("13/04/2023", "Centro"),
+    Attendance("14/04/2023", "Centro"),
+    Attendance("17/04/2023", "Centro"),
+    Attendance("18/04/2023", "Centro"),
+    Attendance("19/04/2023", "Centro"),
+    Attendance("20/04/2023", "Centro"),
+    Attendance("21/04/2023", "Centro"),
+    Attendance("24/04/2023", "Centro"),
+    Attendance("25/04/2023", "Centro"),
+    Attendance("26/04/2023", "Centro"),
+    Attendance("27/04/2023", "Centro"),
+    Attendance("28/04/2023", "Centro"),
+    Attendance("02/05/2023", "Centro"),
+    Attendance("03/05/2023", "Centro"),
+    Attendance("04/05/2023", "Centro"),
+    Attendance("05/05/2023", "Centro"),
+    Attendance("08/05/2023", "Centro"),
+    Attendance("09/05/2023", "Centro"),
+    Attendance("10/05/2023", "Centro"),
+    Attendance("11/05/2023", "Centro"),
+    Attendance("12/05/2023", "Centro"),
+    Attendance("15/05/2023", "Centro"),
+    Attendance("16/05/2023", "Centro"),
+    Attendance("17/05/2023", "Centro"),
+    Attendance("18/05/2023", "Centro"),
+    Attendance("19/05/2023", "Centro"),
+    Attendance("22/05/2023", "Centro"),
+    Attendance("23/05/2023", "Centro"),
+    Attendance("24/05/2023", "Centro"),
+    Attendance("25/05/2023", "Centro"),
+    Attendance("26/05/2023", "Centro"),
+    Attendance("29/05/2023", "Centro"),
+    Attendance("30/05/2023", "Centro"),
+    Attendance("31/05/2023", "Centro"),
+    Attendance("01/06/2023", "Centro"),
+    Attendance("02/06/2023", "Centro"),
+    Attendance("05/06/2023", "Centro"),
+    Attendance("06/06/2023", "Centro"),
+    Attendance("07/06/2023", "Centro"),
+    Attendance("08/06/2023", "Centro"),
+    Attendance("09/06/2023", "Centro"),
+    Attendance("12/06/2023", "Centro"),
+    Attendance("13/06/2023", "Centro"),
+    Attendance("14/06/2023", "Centro"),
+    Attendance("15/06/2023", "Centro"),
+    Attendance("16/06/2023", "Centro"),
+)
 
-    while (calendar.get(Calendar.MONTH) == numberMonth) {
-        if (calendar.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY && calendar.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY) {
-            val dayName = when (calendar.get(Calendar.DAY_OF_WEEK)) {
-                Calendar.MONDAY -> "Lunes"
-                Calendar.TUESDAY -> "Martes"
-                Calendar.WEDNESDAY -> "Miércoles"
-                Calendar.THURSDAY -> "Jueves"
-                Calendar.FRIDAY -> "Viernes"
-                else -> ""
-            }
-            val monthName = when (calendar.get(Calendar.MONTH)) {
-                Calendar.JANUARY -> "Enero"
-                Calendar.FEBRUARY -> "Febrero"
-                Calendar.MARCH -> "Marzo"
-                Calendar.APRIL -> "Abril"
-                Calendar.MAY -> "Mayo"
-                Calendar.JUNE -> "Junio"
-                Calendar.JULY -> "Julio"
-                Calendar.AUGUST -> "Agosto"
-                Calendar.SEPTEMBER -> "Septiembre"
-                Calendar.OCTOBER -> "Octubre"
-                Calendar.NOVEMBER -> "Noviembre"
-                Calendar.DECEMBER -> "Diciembre"
-                else -> ""
-            }
-            val numberDay = calendar.get(Calendar.DAY_OF_MONTH)
-            days.add(Day(dayName, numberDay, monthName, false, false, false))
+val attendanceInfoList = transformDates(attendancesCadiz)
+
+fun transformDates(listAttendance: List<Attendance>): List<AttendanceInfo> {
+    val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+    val listAttendanceInfo = mutableListOf<AttendanceInfo>()
+
+    for (attendance in listAttendance) {
+        val attendanceDate = dateFormat.parse(attendance.dateAttendance)
+        val calendar = Calendar.getInstance()
+        calendar.time = attendanceDate
+
+        val dayName = when (calendar.get(Calendar.DAY_OF_WEEK)) {
+            Calendar.MONDAY -> "Lunes"
+            Calendar.TUESDAY -> "Martes"
+            Calendar.WEDNESDAY -> "Miércoles"
+            Calendar.THURSDAY -> "Jueves"
+            Calendar.FRIDAY -> "Viernes"
+            Calendar.SATURDAY -> "Sabado"
+            Calendar.SUNDAY -> "Domingo"
+            else -> ""
         }
-        calendar.add(Calendar.DAY_OF_MONTH, 1)
+        val monthName = when (calendar.get(Calendar.MONTH)) {
+            Calendar.JANUARY -> "Enero"
+            Calendar.FEBRUARY -> "Febrero"
+            Calendar.MARCH -> "Marzo"
+            Calendar.APRIL -> "Abril"
+            Calendar.MAY -> "Mayo"
+            Calendar.JUNE -> "Junio"
+            Calendar.JULY -> "Julio"
+            Calendar.AUGUST -> "Agosto"
+            Calendar.SEPTEMBER -> "Septiembre"
+            Calendar.OCTOBER -> "Octubre"
+            Calendar.NOVEMBER -> "Noviembre"
+            Calendar.DECEMBER -> "Diciembre"
+            else -> ""
+        }
+        val dayNumber = calendar.get(Calendar.DAY_OF_MONTH)
+        val typeAttendance = attendance.typeAttendance
+
+        val day = AttendanceInfo.Day(dayNumber, dayName, attendance.typeAttendance)
+        val month = AttendanceInfo.Month(monthName)
+
+        if(!listAttendanceInfo.contains(month)){
+            listAttendanceInfo.add(month)
+        }
+        listAttendanceInfo.add(day)
     }
-    return days
+    return listAttendanceInfo
 }
