@@ -61,4 +61,7 @@
     <color name="md_theme_dark_surfaceTint">#D5BAFF</color>
     <color name="md_theme_dark_outlineVariant">#49454E</color>
     <color name="md_theme_dark_scrim">#000000</color>
+    <color name="attendance_dialog_center_formation">#000000</color>
+    <color name="attendance_dialog_holidays">#16A202</color>
+    <color name="attendance_dialog_center_study">#DBC20C</color>
 </resources>

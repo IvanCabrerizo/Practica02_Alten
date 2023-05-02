@@ -5,7 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.practica02.adapter.AttendanceRecyclerAdapter
 import com.example.practica02.databinding.ActivityAttendanceBinding
-import com.example.practica02.repository.attendanceInfoList
+import com.example.practica02.repository.transformDates
+import java.text.FieldPosition
 
 class AttendanceActivity : AppCompatActivity() {
 
@@ -18,8 +19,10 @@ class AttendanceActivity : AppCompatActivity() {
     }
 
     fun initRecyclerView() {
+        val currentAttendanceList =
+            transformDates(studentList[intent.getIntExtra("STUDENT", 0)].attendanceList)
         val recyclerView = binding.AttendanceListCalendar
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = AttendanceRecyclerAdapter(attendanceInfoList)
+        recyclerView.adapter = AttendanceRecyclerAdapter(currentAttendanceList)
     }
 }

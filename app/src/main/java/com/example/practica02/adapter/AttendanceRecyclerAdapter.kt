@@ -1,16 +1,18 @@
 package com.example.practica02.adapter
 
 
-import android.graphics.Color
+import android.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.practica02.AttendanceActivity
 import com.example.practica02.R
 import com.example.practica02.model.AttendanceInfo
 
-class AttendanceRecyclerAdapter(private val attendanceInfoList: List<AttendanceInfo>) :
+class AttendanceRecyclerAdapter(private val attendanceInfoList: MutableList<AttendanceInfo>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -37,8 +39,7 @@ class AttendanceRecyclerAdapter(private val attendanceInfoList: List<AttendanceI
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val item = attendanceInfoList[position]
-        when (item) {
+        when (val item = attendanceInfoList[position]) {
             is AttendanceInfo.Month -> (holder as MonthViewHolder).bind(item)
             is AttendanceInfo.Day -> (holder as DayViewHolder).bind(item)
         }
@@ -54,8 +55,50 @@ class AttendanceRecyclerAdapter(private val attendanceInfoList: List<AttendanceI
     inner class DayViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val dayTextView: TextView = itemView.findViewById(R.id.textView1)
         fun bind(item: AttendanceInfo.Day) {
+            val black = ContextCompat.getColor(dayTextView.context, R.color.attendance_dialog_center_formation)
+            val green = ContextCompat.getColor(dayTextView.context, R.color.attendance_dialog_holidays)
+            val yellow = ContextCompat.getColor(dayTextView.context, R.color.attendance_dialog_center_study)
+
+            when(item.typeAttendance){
+                "Formación" -> dayTextView.setTextColor(black)
+                "Vacaciones" -> dayTextView.setTextColor(green)
+                "Clases" -> dayTextView.setTextColor(yellow)
+            }
             val completeDayName = "${item.numberDay} ${item.nameDay}"
+            val adapterPosition = adapterPosition
             dayTextView.text = completeDayName
+            dayTextView.setOnClickListener {
+
+                val attendanceTypeDialogBuilder = AlertDialog.Builder(itemView.context)
+                val attendanceDialogView = LayoutInflater.from(itemView.context).inflate(R.layout.attendance_type_dialog, null)
+                attendanceTypeDialogBuilder.setView(attendanceDialogView)
+                attendanceTypeDialogBuilder.setTitle(completeDayName)
+
+
+                val attendandeTypeDialog = attendanceTypeDialogBuilder.create()
+                attendandeTypeDialog.show()
+
+                val formationLabel = attendanceDialogView.findViewById<TextView>(R.id.attendanceDialogLabelFormation)
+                formationLabel.setOnClickListener {
+                    val newAttendanceType = AttendanceInfo.Day(item.numberDay, item.nameDay, "Formación")
+                    attendanceInfoList[adapterPosition] = newAttendanceType
+                    notifyItemChanged(adapterPosition)
+                }
+
+                val holidaysLabel = attendanceDialogView.findViewById<TextView>(R.id.attendanceDialogLabelHolidays)
+                holidaysLabel.setOnClickListener {
+                    val newAttendanceType = AttendanceInfo.Day(item.numberDay, item.nameDay, "Vacaciones")
+                    attendanceInfoList[adapterPosition] = newAttendanceType
+                    notifyItemChanged(adapterPosition)
+                }
+
+                val centerStudyLabel = attendanceDialogView.findViewById<TextView>(R.id.attendanceDialogLabelStudyCenter)
+                centerStudyLabel.setOnClickListener {
+                    val newAttendanceType = AttendanceInfo.Day(item.numberDay, item.nameDay, "Clases")
+                    attendanceInfoList[adapterPosition] = newAttendanceType
+                    notifyItemChanged(adapterPosition)
+                }
+            }
         }
     }
 }

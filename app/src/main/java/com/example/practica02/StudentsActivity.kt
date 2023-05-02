@@ -18,6 +18,7 @@ class StudentsActivity : AppCompatActivity() {
         tabConfigure()
         binding.fragmentStudentBtnCalendar.setOnClickListener{
             val intent = Intent(this, AttendanceActivity::class.java)
+            intent.putExtra("STUDENT", binding.pager.currentItem)
             startActivity(intent)
         }
     }
