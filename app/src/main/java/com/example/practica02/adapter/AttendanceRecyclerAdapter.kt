@@ -55,15 +55,14 @@ class AttendanceRecyclerAdapter(private val attendanceInfoList: MutableList<Atte
     inner class DayViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val dayTextView: TextView = itemView.findViewById(R.id.textView1)
         fun bind(item: AttendanceInfo.Day) {
-            val black = ContextCompat.getColor(dayTextView.context, R.color.attendance_dialog_center_formation)
-            val green = ContextCompat.getColor(dayTextView.context, R.color.attendance_dialog_holidays)
-            val yellow = ContextCompat.getColor(dayTextView.context, R.color.attendance_dialog_center_study)
 
-            when(item.typeAttendance){
-                "Formación" -> dayTextView.setTextColor(black)
-                "Vacaciones" -> dayTextView.setTextColor(green)
-                "Clases" -> dayTextView.setTextColor(yellow)
-            }
+            val color = ContextCompat.getColor(dayTextView.context, when(item.typeAttendance){
+                "Vacaciones" -> R.color.attendance_dialog_holidays
+                "Clases" -> R.color.attendance_dialog_center_study
+                else -> R.color.attendance_dialog_center_formation
+            })
+            dayTextView.setTextColor(color)
+
             val completeDayName = "${item.numberDay} ${item.nameDay}"
             val adapterPosition = adapterPosition
             dayTextView.text = completeDayName

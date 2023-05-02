@@ -1,8 +1,12 @@
 package com.example.practica02
 
+import com.example.practica02.model.Attendance
 import com.example.practica02.model.Person
 import com.example.practica02.repository.attendancesCadiz
 import com.example.practica02.repository.attendancesSevilla
+fun updateAttendanceList(student: Person.Student, listAttendance: List<Attendance>){
+
+}
 
 val studentList = listOf(
     Person.Student(

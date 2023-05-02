@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.practica02.adapter.AttendanceRecyclerAdapter
 import com.example.practica02.databinding.ActivityAttendanceBinding
 import com.example.practica02.repository.transformDates
-import java.text.FieldPosition
 
 class AttendanceActivity : AppCompatActivity() {
 
