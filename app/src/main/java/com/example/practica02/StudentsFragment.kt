@@ -45,8 +45,4 @@ class StudentsFragment : Fragment() {
             ?: "") + " " + (tutorList.find { it.id == tutorId }?.surname
             ?: "")
     }
-
-    private fun ImageView.glideUrl(url: String) {
-        Glide.with(this).load(url).into(this)
-    }
 }

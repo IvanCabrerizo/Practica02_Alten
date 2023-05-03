@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.practica02.adapter.AttendanceRecyclerAdapter
 import com.example.practica02.databinding.ActivityAttendanceBinding
+import com.example.practica02.model.Person
 import com.example.practica02.repository.transformDates
+import com.google.android.material.appbar.AppBarLayout
 
 class AttendanceActivity : AppCompatActivity() {
 
@@ -14,14 +16,31 @@ class AttendanceActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        initRecyclerView()
+        val actualStudent = studentList[intent.getIntExtra("STUDENT", 0)]
+        binding.avatar.glideUrl(actualStudent.photo)
+        val listener = AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
+            val totalScrollRange = appBarLayout.totalScrollRange
+            if (verticalOffset + totalScrollRange == 0) {
+                binding.nombre2.text = actualStudent.name
+            } else {
+                binding.nombre2.text = ""
+                binding.nombre.text = actualStudent.name + " " +actualStudent.surname
+            }
+        }
+        binding.appbarLayout.addOnOffsetChangedListener(listener)
+        initRecyclerView(actualStudent)
+
+        binding.floatingButton.setOnClickListener{
+
+
+        }
     }
 
-    fun initRecyclerView() {
+    fun initRecyclerView(actualStudent: Person.Student) {
         val currentAttendanceList =
-            transformDates(studentList[intent.getIntExtra("STUDENT", 0)].attendanceList)
+            transformDates(actualStudent.attendanceList)
         val recyclerView = binding.AttendanceListCalendar
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = AttendanceRecyclerAdapter(currentAttendanceList, studentList[intent.getIntExtra("STUDENT", 0)])
+        recyclerView.adapter = AttendanceRecyclerAdapter(currentAttendanceList, actualStudent)
     }
 }
