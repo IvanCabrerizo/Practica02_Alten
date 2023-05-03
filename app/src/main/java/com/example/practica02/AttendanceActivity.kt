@@ -22,6 +22,6 @@ class AttendanceActivity : AppCompatActivity() {
             transformDates(studentList[intent.getIntExtra("STUDENT", 0)].attendanceList)
         val recyclerView = binding.AttendanceListCalendar
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = AttendanceRecyclerAdapter(currentAttendanceList)
+        recyclerView.adapter = AttendanceRecyclerAdapter(currentAttendanceList, studentList[intent.getIntExtra("STUDENT", 0)])
     }
 }

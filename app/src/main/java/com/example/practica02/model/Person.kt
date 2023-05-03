@@ -12,7 +12,7 @@ sealed class Person {
         val city: String,
         val photo: String,
         val tutorId: Int,
-        val attendanceList: List<Attendance>,
+        val attendanceList: MutableList<Attendance>,
     ) : Person()
 
     data class Tutor(

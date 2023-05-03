@@ -7,7 +7,7 @@ import java.util.Calendar
 import java.util.Locale
 
 
-val attendancesCadiz = listOf(
+val attendancesCadiz = mutableListOf(
     Attendance("27/3/2023", "Formación"),
     Attendance("28/3/2023", "Formación"),
     Attendance("29/3/2023", "Formación"),
@@ -70,7 +70,7 @@ val attendancesCadiz = listOf(
     Attendance("16/06/2023", "Formación"),
 )
 
-val attendancesSevilla = listOf(
+val attendancesSevilla = mutableListOf(
     Attendance("27/3/2023", "Centro"),
     Attendance("28/3/2023", "Centro"),
     Attendance("29/3/2023", "Centro"),
@@ -136,8 +136,8 @@ fun transformDates(listAttendance: List<Attendance>): MutableList<AttendanceInfo
     val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
     val listAttendanceInfo = mutableListOf<AttendanceInfo>()
 
-    for (attendance in listAttendance) {
-        val attendanceDate = dateFormat.parse(attendance.dateAttendance)
+    for (attendancePosition in listAttendance.indices) {
+        val attendanceDate = dateFormat.parse(listAttendance[attendancePosition].dateAttendance)
         val calendar = Calendar.getInstance()
         calendar.time = attendanceDate
 
@@ -168,10 +168,10 @@ fun transformDates(listAttendance: List<Attendance>): MutableList<AttendanceInfo
         }
         val dayNumber = calendar.get(Calendar.DAY_OF_MONTH)
 
-        val day = AttendanceInfo.Day(dayNumber, dayName, attendance.typeAttendance)
+        val day = AttendanceInfo.Day(dayNumber, dayName, listAttendance[attendancePosition].typeAttendance, attendancePosition)
         val month = AttendanceInfo.Month(monthName)
 
-        if(!listAttendanceInfo.contains(month)){
+        if (!listAttendanceInfo.contains(month)) {
             listAttendanceInfo.add(month)
         }
         listAttendanceInfo.add(day)

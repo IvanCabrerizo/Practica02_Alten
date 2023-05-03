@@ -1,11 +1,14 @@
 package com.example.practica02
 
-import com.example.practica02.model.Attendance
+import com.example.practica02.adapter.AttendanceRecyclerAdapter
 import com.example.practica02.model.Person
 import com.example.practica02.repository.attendancesCadiz
 import com.example.practica02.repository.attendancesSevilla
-fun updateAttendanceList(student: Person.Student, listAttendance: List<Attendance>){
 
+fun updateAttendanceList(student: Person.Student, positionList: Int, newAttendanceType: String) {
+    val attendancePosition = student.attendanceList[positionList]
+    val newAttendance = attendancePosition.copy(typeAttendance = newAttendanceType)
+    student.attendanceList[positionList] = newAttendance
 }
 
 val studentList = listOf(
