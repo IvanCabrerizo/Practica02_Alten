@@ -2,15 +2,15 @@ package com.example.practica02.adapter
 
 
 import android.app.AlertDialog
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.practica02.R
+import com.example.practica02.databinding.DayListItemBinding
+import com.example.practica02.databinding.MonthHeaderItemBinding
 import com.example.practica02.model.AttendanceInfo
 import com.example.practica02.model.Person
 import com.example.practica02.repository.updateAttendanceList
@@ -28,13 +28,13 @@ class AttendanceRecyclerAdapter(
         val layoutInflater = LayoutInflater.from(parent.context)
         return when (viewType) {
             0 -> {
-                val view = layoutInflater.inflate(R.layout.month_header_item, parent, false)
-                MonthViewHolder(view)
+                val monthBinding = MonthHeaderItemBinding.inflate(layoutInflater , parent, false)
+                MonthViewHolder(monthBinding)
             }
 
             1 -> {
-                val view = layoutInflater.inflate(R.layout.day_list_item, parent, false)
-                DayViewHolder(view)
+                val dayBinding = DayListItemBinding.inflate(layoutInflater , parent, false)
+                DayViewHolder(dayBinding)
             }
 
             else -> throw IllegalArgumentException("Invalid view type")
@@ -57,35 +57,33 @@ class AttendanceRecyclerAdapter(
         }
     }
 
-    inner class MonthViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val monthTextView: TextView = itemView.findViewById(R.id.textView1)
+    inner class MonthViewHolder(private val monthBinding: MonthHeaderItemBinding) : RecyclerView.ViewHolder(monthBinding.root) {
         fun bind(item: AttendanceInfo.Month) {
-            monthTextView.text = item.nameMonth
+            monthBinding.textView1.text = item.nameMonth
         }
     }
 
-    inner class DayViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val dayTextView: TextView = itemView.findViewById(R.id.textView1)
+    inner class DayViewHolder(private val dayBinding: DayListItemBinding) : RecyclerView.ViewHolder(dayBinding.root) {
         fun bind(item: AttendanceInfo.Day) {
             val completeDayName = "${item.nameDay} ${item.numberDay}"
             val shortName = "${item.nameDay.first()} ${item.numberDay}"
             val previousState = item.typeAttendance
             val color = ContextCompat.getColor(
-                dayTextView.context, when (item.typeAttendance) {
+                dayBinding.textView1.context, when (item.typeAttendance) {
                     "Vacaciones" -> R.color.attendance_dialog_holidays
                     "Clases" -> R.color.attendance_dialog_center_study
                     else -> R.color.attendance_dialog_center_formation
                 }
             )
-            dayTextView.setTextColor(color)
+            dayBinding.textView1.setTextColor(color)
 
             if (isGridLayout) {
-                dayTextView.text = shortName
+                dayBinding.textView1.text = shortName
             } else {
-                dayTextView.text = completeDayName
+                dayBinding.textView1.text = completeDayName
             }
 
-            dayTextView.setOnClickListener {
+            dayBinding.textView1.setOnClickListener {
 
                 val attendanceTypeDialogBuilder = AlertDialog.Builder(itemView.context)
                 val attendanceDialogView = LayoutInflater.from(itemView.context)
@@ -93,14 +91,11 @@ class AttendanceRecyclerAdapter(
                 attendanceTypeDialogBuilder.setView(attendanceDialogView)
 
 
-
-
-
-
                 val attendanceTypeDialog = attendanceTypeDialogBuilder.create()
                 attendanceTypeDialog.show()
 
-                val dayLabel = attendanceDialogView.findViewById<TextView>(R.id.attendanceDialogLabelActualDay)
+                val dayLabel =
+                    attendanceDialogView.findViewById<TextView>(R.id.attendanceDialogLabelActualDay)
                 dayLabel.text = completeDayName
 
                 val formationLabel =
@@ -133,20 +128,24 @@ class AttendanceRecyclerAdapter(
                     attendanceTypeDialog.dismiss()
                 }
 
-                val cancelButton = attendanceDialogView.findViewById<MaterialButton>(R.id.attendanceDialogButtonCancel)
+                val cancelButton =
+                    attendanceDialogView.findViewById<MaterialButton>(R.id.attendanceDialogButtonCancel)
                 cancelButton.setOnClickListener {
                     attendanceTypeDialog.dismiss()
                 }
             }
         }
+
         private fun showSnackbar(item: AttendanceInfo.Day, attendanceType: String, position: Int) {
-            val snackbar = Snackbar.make(dayTextView, "Asistencia cambiada a $attendanceType", Snackbar.LENGTH_LONG)
+            val snackbar = Snackbar.make(
+                dayBinding.textView1,
+                "Asistencia cambiada a $attendanceType",
+                Snackbar.LENGTH_LONG
+            )
 
             snackbar.setAction("Deshacer") {
-                Log.i("PRUEBA", attendanceType)
                 updateAttendanceList(actualStudent, item.attendanceListPosition, attendanceType)
                 item.typeAttendance = attendanceType
-                Log.i("PRUEBA", item.typeAttendance)
                 notifyItemChanged(position)
             }
             snackbar.show()

@@ -1,5 +1,6 @@
 package com.example.practica02
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -17,12 +18,12 @@ class StudentsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        binding.setupAdapter()
-        binding.tabConfigure(studentList)
-        binding.fragmentStudentBtnCalendar.setOnClickListener{
-            val intent = Intent(this, AttendanceActivity::class.java)
-            intent.putExtra("STUDENT", binding.activityStudentPagerAlumInfo.currentItem)
-            startActivity(intent)
+        with(binding){
+            setupAdapter()
+            tabConfigure(studentList)
+            fragmentStudentBtnCalendar.setOnClickListener{
+                startActivity(newIntent(fragmentStudentBtnCalendar.context, activityStudentPagerAlumInfo.currentItem))
+            }
         }
     }
 
@@ -39,5 +40,11 @@ class StudentsActivity : AppCompatActivity() {
 
     private fun ActivityStudentsBinding.setupAdapter() {
         activityStudentPagerAlumInfo.adapter = adapter
+    }
+
+    private fun newIntent(context: Context, actualStudentPosition: Int): Intent{
+        return Intent(context, AttendanceActivity::class.java).apply {
+            putExtra("STUDENT", actualStudentPosition)
+        }
     }
 }

@@ -1,11 +1,13 @@
 package com.example.practica02.repository
 
+import android.util.Log
 import com.example.practica02.model.Person
 
 fun updateAttendanceList(student: Person.Student, positionList: Int, newAttendanceType: String) {
-    val attendancePosition = student.attendanceList[positionList]
-    val newAttendance = attendancePosition.copy(typeAttendance = newAttendanceType)
-    student.attendanceList[positionList] = newAttendance
+    val attendanceListCopy = student.attendanceList.toMutableList() // Copia independiente de la lista original
+    val attendanceCopy = attendanceListCopy[positionList].copy(typeAttendance = newAttendanceType) // Copia independiente del objeto Attendance
+    attendanceListCopy[positionList] = attendanceCopy // Actualiza la copia de la lista con la copia del objeto Attendance actualizado
+    student.attendanceList = attendanceListCopy // Actualiza la lista de asistencia del estudiante con la copia actualizada
 }
 
 val studentList = listOf(
