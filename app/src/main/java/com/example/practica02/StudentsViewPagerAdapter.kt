@@ -1,22 +1,19 @@
 package com.example.practica02
 
-import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.example.practica02.model.Person
 
-class StudentsViewPagerAdapter(fragment: FragmentActivity) : FragmentStateAdapter(fragment) {
-    companion object {
-        private const val ARG_OBJECT = "object"
-    }
+class StudentsViewPagerAdapter(
+    private val studentList: List<Person.Student>,
+    fragment: FragmentActivity
+) :
+    FragmentStateAdapter(fragment) {
 
-    override fun getItemCount(): Int = 13
+    override fun getItemCount() = studentList.size
 
     override fun createFragment(position: Int): Fragment {
-        val fragment = StudentsFragment()
-        fragment.arguments = Bundle().apply {
-            putInt(ARG_OBJECT, position)
-        }
-        return fragment
+        return StudentsFragment.newFragment(position)
     }
 }

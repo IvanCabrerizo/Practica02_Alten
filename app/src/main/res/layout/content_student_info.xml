@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/fragmentStudentLabelNameTag"
+        style="@style/labelStudentFragmentTagStyle"
+        android:text="@string/name_tag_label" />
+
+    <TextView
+        android:id="@+id/fragmentStudentLabelName"
+        style="@style/labelStudentFragmentStyle" />
+
+    <TextView
+        android:id="@+id/fragmentStudentLabelLastNameTag"
+        style="@style/labelStudentFragmentTagStyle"
+        android:text="@string/surname_tag_label" />
+
+    <TextView
+        android:id="@+id/fragmentStudentLabelLastName"
+        style="@style/labelStudentFragmentStyle" />
+
+    <TextView
+        android:id="@+id/fragmentStudentLabelMailTag"
+        style="@style/labelStudentFragmentTagStyle"
+        android:text="@string/mail_tag_label" />
+
+    <TextView
+        android:id="@+id/fragmentStudentLabelMail"
+        style="@style/labelStudentFragmentStyle" />
+
+    <TextView
+        android:id="@+id/fragmentStudentLabelCityTag"
+        style="@style/labelStudentFragmentTagStyle"
+        android:text="@string/city_tag_label" />
+
+    <TextView
+        android:id="@+id/fragmentStudentLabelCity"
+        style="@style/labelStudentFragmentStyle" />
+
+    <TextView
+        android:id="@+id/fragmentStudentLabelStudyCenterTag"
+        style="@style/labelStudentFragmentTagStyle"
+        android:text="@string/center_tag_label" />
+
+    <TextView
+        android:id="@+id/fragmentStudentLabelStudyCenter"
+        style="@style/labelStudentFragmentStyle" />
+
+    <TextView
+        android:id="@+id/fragmentStudentLabelTutorTag"
+        style="@style/labelStudentFragmentTagStyle"
+        android:text="@string/tutor_tag_label" />
+
+    <TextView
+        android:id="@+id/fragmentStudentLabelTutorName"
+        style="@style/labelStudentFragmentStyle" />
+</LinearLayout>

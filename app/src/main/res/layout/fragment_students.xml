@@ -4,79 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".StudentsFragment">
 
+    <ImageView
+        android:id="@+id/fragmentStudentImgAvatar"
+        android:layout_width="@dimen/avatar_width"
+        android:layout_height="@dimen/avatar_height"
+        android:contentDescription="@string/student_avatar_description"
+        android:src="@drawable/ic_launcher_background"
+        app:layout_constraintBottom_toTopOf="@id/studentInfo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/studentInfo"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/fragmentStudentLabelsContainer"
-        android:layout_width="match_parent"
+    <include
+        android:id="@+id/studentInfo"
+        layout="@layout/content_student_info"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="@dimen/half_bias"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/fragmentStudentImgAvatar"
-            android:layout_width="@dimen/avatar_width"
-            android:layout_height="@dimen/avatar_height"
-            android:layout_gravity="center"
-            android:layout_marginBottom="@dimen/avatar_bottom_margin"
-            android:contentDescription="@string/student_avatar_description"
-            android:src="@drawable/ic_launcher_background" />
-
-        <TextView
-            android:id="@+id/fragmentStudentLabelNameTag"
-            style="@style/labelStudentFragmentTagStyle"
-            android:text="@string/name_tag_label"/>
-
-        <TextView
-            android:id="@+id/fragmentStudentLabelName"
-            style="@style/labelStudentFragmentStyle" />
-
-        <TextView
-            android:id="@+id/fragmentStudentLabelLastNameTag"
-            style="@style/labelStudentFragmentTagStyle"
-            android:text="@string/surname_tag_label"/>
-
-        <TextView
-            android:id="@+id/fragmentStudentLabelLastName"
-            style="@style/labelStudentFragmentStyle" />
-
-        <TextView
-            android:id="@+id/fragmentStudentLabelMailTag"
-            style="@style/labelStudentFragmentTagStyle"
-            android:text="@string/mail_tag_label"/>
-
-        <TextView
-            android:id="@+id/fragmentStudentLabelMail"
-            style="@style/labelStudentFragmentStyle" />
-
-        <TextView
-            android:id="@+id/fragmentStudentLabelCityTag"
-            style="@style/labelStudentFragmentTagStyle"
-            android:text="@string/city_tag_label"/>
-
-        <TextView
-            android:id="@+id/fragmentStudentLabelCity"
-            style="@style/labelStudentFragmentStyle" />
-
-        <TextView
-            android:id="@+id/fragmentStudentLabelStudyCenterTag"
-            style="@style/labelStudentFragmentTagStyle"
-            android:text="@string/center_tag_label"/>
-
-        <TextView
-            android:id="@+id/fragmentStudentLabelStudyCenter"
-            style="@style/labelStudentFragmentStyle" />
-
-        <TextView
-            android:id="@+id/fragmentStudentLabelTutorTag"
-            style="@style/labelStudentFragmentTagStyle"
-            android:text="@string/tutor_tag_label"/>
-
-        <TextView
-            android:id="@+id/fragmentStudentLabelTutorName"
-            style="@style/labelStudentFragmentStyle" />
-    </LinearLayout>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="@dimen/half_bias" />
 </androidx.constraintlayout.widget.ConstraintLayout>
