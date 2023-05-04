@@ -49,6 +49,12 @@ class AttendanceActivity : AppCompatActivity() {
 
     private fun checkLayout(student: Person.Student) {
         isGridLayout = !isGridLayout
+        if(isGridLayout){
+            binding.attendanceBtnChangeLayout.setImageResource(android.R.drawable.ic_menu_sort_by_size)
+        }
+        else{
+            binding.attendanceBtnChangeLayout.setImageResource(android.R.drawable.ic_dialog_dialer)
+        }
         initRecyclerView(student)
     }
 
