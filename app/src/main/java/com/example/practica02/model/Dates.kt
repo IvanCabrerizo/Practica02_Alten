@@ -14,7 +14,7 @@ sealed class AttendanceInfo {
     data class Day(
         val numberDay: Int,
         val nameDay: String,
-        val typeAttendance: String,
+        var typeAttendance: String,
         val attendanceListPosition: Int,
     ) : AttendanceInfo()
 }

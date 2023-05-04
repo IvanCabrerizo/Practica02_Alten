@@ -1,9 +1,6 @@
 package com.example.practica02.repository
 
-import com.example.practica02.adapter.AttendanceRecyclerAdapter
 import com.example.practica02.model.Person
-import com.example.practica02.repository.attendancesCadiz
-import com.example.practica02.repository.attendancesSevilla
 
 fun updateAttendanceList(student: Person.Student, positionList: Int, newAttendanceType: String) {
     val attendancePosition = student.attendanceList[positionList]
@@ -129,7 +126,9 @@ val studentList = listOf(
         "CES Juan Pablo II",
         "Cadiz",
         "https://i.stack.imgur.com/5Kgaq.jpg?s=256&g=1",
-        tutorList.find { it -> it.userName == "carlos.dorado" }),
+        tutorList.find { it -> it.userName == "carlos.dorado" },
+        attendancesCadiz
+    ),
     Person.Student(
         "Pablo",
         "Torres Marmol",
@@ -138,6 +137,6 @@ val studentList = listOf(
         "Sevilla",
         "https://p16-va-tiktok.ibyteimg.com/img/musically-maliva-obj/f2906cfb9287957b8a8cbf815fc7b71a~c5_720x720.jpeg",
         tutorList.find { it -> it.userName == "sergio.perez" },
-        attendancesCadiz,
+        attendancesSevilla,
     ),
 )

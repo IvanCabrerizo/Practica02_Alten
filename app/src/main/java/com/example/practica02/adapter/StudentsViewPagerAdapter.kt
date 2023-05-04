@@ -1,8 +1,9 @@
-package com.example.practica02
+package com.example.practica02.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.example.practica02.StudentsFragment
 import com.example.practica02.model.Person
 
 class StudentsViewPagerAdapter(

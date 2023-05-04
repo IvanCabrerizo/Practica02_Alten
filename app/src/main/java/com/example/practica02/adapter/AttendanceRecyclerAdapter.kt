@@ -6,17 +6,21 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.practica02.R
 import com.example.practica02.model.AttendanceInfo
 import com.example.practica02.model.Person
-import com.example.practica02.updateAttendanceList
+import com.example.practica02.repository.updateAttendanceList
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.snackbar.Snackbar
 
 class AttendanceRecyclerAdapter(
     private val attendanceInfoList: MutableList<AttendanceInfo>,
-    private val actualStudent: Person.Student
+    private val actualStudent: Person.Student,
+    private var isGridLayout: Boolean,
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -63,7 +67,9 @@ class AttendanceRecyclerAdapter(
     inner class DayViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val dayTextView: TextView = itemView.findViewById(R.id.textView1)
         fun bind(item: AttendanceInfo.Day) {
-
+            val completeDayName = "${item.nameDay} ${item.numberDay}"
+            val shortName = "${item.nameDay.first()} ${item.numberDay}"
+            val previousState = item.typeAttendance
             val color = ContextCompat.getColor(
                 dayTextView.context, when (item.typeAttendance) {
                     "Vacaciones" -> R.color.attendance_dialog_holidays
@@ -73,41 +79,77 @@ class AttendanceRecyclerAdapter(
             )
             dayTextView.setTextColor(color)
 
-            val completeDayName = "${item.numberDay} ${item.nameDay}"
-            dayTextView.text = completeDayName
+            if (isGridLayout) {
+                dayTextView.text = shortName
+            } else {
+                dayTextView.text = completeDayName
+            }
+
             dayTextView.setOnClickListener {
 
                 val attendanceTypeDialogBuilder = AlertDialog.Builder(itemView.context)
                 val attendanceDialogView = LayoutInflater.from(itemView.context)
                     .inflate(R.layout.attendance_type_dialog, null)
                 attendanceTypeDialogBuilder.setView(attendanceDialogView)
-                attendanceTypeDialogBuilder.setTitle(completeDayName)
+
+
+
+
 
 
                 val attendanceTypeDialog = attendanceTypeDialogBuilder.create()
                 attendanceTypeDialog.show()
 
+                val dayLabel = attendanceDialogView.findViewById<TextView>(R.id.attendanceDialogLabelActualDay)
+                dayLabel.text = completeDayName
+
                 val formationLabel =
                     attendanceDialogView.findViewById<TextView>(R.id.attendanceDialogLabelFormation)
                 formationLabel.setOnClickListener {
-                    Log.i("PRUEBA", actualStudent.name + item.attendanceListPosition)
                     updateAttendanceList(actualStudent, item.attendanceListPosition, "Formación")
+                    item.typeAttendance = "Formación"
+                    showSnackbar(item, previousState, adapterPosition)
+                    notifyItemChanged(adapterPosition)
+                    attendanceTypeDialog.dismiss()
                 }
 
                 val holidaysLabel =
                     attendanceDialogView.findViewById<TextView>(R.id.attendanceDialogLabelHolidays)
                 holidaysLabel.setOnClickListener {
-                    Log.i("PRUEBA", actualStudent.name + item.attendanceListPosition)
                     updateAttendanceList(actualStudent, item.attendanceListPosition, "Vacaciones")
+                    item.typeAttendance = "Vacaciones"
+                    showSnackbar(item, previousState, adapterPosition)
+                    notifyItemChanged(adapterPosition)
+                    attendanceTypeDialog.dismiss()
                 }
 
                 val centerStudyLabel =
                     attendanceDialogView.findViewById<TextView>(R.id.attendanceDialogLabelStudyCenter)
                 centerStudyLabel.setOnClickListener {
-                    Log.i("PRUEBA", actualStudent.name + item.attendanceListPosition)
                     updateAttendanceList(actualStudent, item.attendanceListPosition, "Clases")
+                    item.typeAttendance = "Clases"
+                    showSnackbar(item, previousState, adapterPosition)
+                    notifyItemChanged(adapterPosition)
+                    attendanceTypeDialog.dismiss()
+                }
+
+                val cancelButton = attendanceDialogView.findViewById<MaterialButton>(R.id.attendanceDialogButtonCancel)
+                cancelButton.setOnClickListener {
+                    attendanceTypeDialog.dismiss()
                 }
             }
+        }
+        private fun showSnackbar(item: AttendanceInfo.Day, attendanceType: String, position: Int) {
+            val snackbar = Snackbar.make(dayTextView, "Asistencia cambiada a $attendanceType", Snackbar.LENGTH_LONG)
+
+            snackbar.setAction("Deshacer") {
+                Log.i("PRUEBA", attendanceType)
+                updateAttendanceList(actualStudent, item.attendanceListPosition, attendanceType)
+                item.typeAttendance = attendanceType
+                Log.i("PRUEBA", item.typeAttendance)
+                notifyItemChanged(position)
+            }
+            snackbar.show()
         }
     }
 }

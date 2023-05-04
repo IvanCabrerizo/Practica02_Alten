@@ -3,6 +3,7 @@ package com.example.practica02
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.practica02.adapter.StudentsViewPagerAdapter
 import com.example.practica02.databinding.ActivityStudentsBinding
 import com.example.practica02.model.Person
 import com.example.practica02.repository.studentList
@@ -20,7 +21,7 @@ class StudentsActivity : AppCompatActivity() {
         binding.tabConfigure(studentList)
         binding.fragmentStudentBtnCalendar.setOnClickListener{
             val intent = Intent(this, AttendanceActivity::class.java)
-            intent.putExtra("STUDENT", binding.pager.currentItem)
+            intent.putExtra("STUDENT", binding.activityStudentPagerAlumInfo.currentItem)
             startActivity(intent)
         }
     }

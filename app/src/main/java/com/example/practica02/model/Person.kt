@@ -13,6 +13,7 @@ sealed class Person {
         val city: String,
         val photo: String,
         val tutor: Tutor?,
+        val attendanceList: MutableList<Attendance>
     ) : Person() {
         val mail: String = "$userName@alten.es"
     }
