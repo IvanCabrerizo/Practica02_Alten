@@ -1,54 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center">
+    android:gravity="center"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/attendanceDialogLabelActualDay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="30sp" />
+        style="@style/labelActualDay"
+ />
 
     <TextView
         android:id="@+id/attendanceDialogLabelFormation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Formación"
-        android:textSize="30sp" />
+        style="@style/labelFormation" />
 
     <TextView
         android:id="@+id/attendanceDialogLabelHolidays"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Vacaciones"
-        android:textColor="@color/attendance_dialog_holidays"
-        android:textSize="30sp" />
+        style="@style/labelHolidays"/>
 
     <TextView
         android:id="@+id/attendanceDialogLabelStudyCenter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Clases"
-        android:textColor="@color/attendance_dialog_center_study"
-        android:textSize="30sp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineStart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineTop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        style="@style/labelStudyCenter"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/attendanceDialogButtonCancel"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:text="Cancelar" />
+        style="@style/cancelBtnDialog"/>
 
 </LinearLayout>

@@ -1,6 +1,5 @@
 package com.example.practica02
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
@@ -20,38 +19,53 @@ class AttendanceActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val actualStudent = studentList[intent.getIntExtra("STUDENT", 0)]
-        binding.avatar.imageUrl(actualStudent.photo)
-        val listener = AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
-            val totalScrollRange = appBarLayout.totalScrollRange
-            if (verticalOffset + totalScrollRange == 0) {
-                binding.nombre2.text = actualStudent.name
-            } else {
-                binding.nombre2.text = ""
-                binding.nombre.text = actualStudent.name + " " + actualStudent.surname
+        val appBarLayoutListener = setupOffsetChangedListener(actualStudent)
+
+        with(binding) {
+            attendanceImgStudentPhoto.imageUrl(actualStudent.photo)
+            attendanceAppbarLayout.addOnOffsetChangedListener(appBarLayoutListener)
+            attendanceBtnChangeLayout.setOnClickListener {
+                checkLayout(actualStudent)
             }
         }
-        binding.appbarLayout.addOnOffsetChangedListener(listener)
-        initRecyclerView(actualStudent)
 
-        binding.floatingButton.setOnClickListener {
-            isGridLayout = !isGridLayout
-            initRecyclerView(actualStudent)
-        }
+        initRecyclerView(actualStudent)
+    }
+
+    private fun setupOffsetChangedListener(actualStudent: Person.Student): AppBarLayout.OnOffsetChangedListener {
+        val completeName = "${actualStudent.name} ${actualStudent.surname}"
+        val offSetChangedListener =
+            AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
+                val totalScrollRange = appBarLayout.totalScrollRange
+                if (verticalOffset + totalScrollRange == 0) {
+                    binding.attendanceLabelCollapsedName.text = actualStudent.name
+                } else {
+                    binding.attendanceLabelCollapsedName.text = ""
+                    binding.attendanceLabelName.text = completeName
+                }
+            }
+        return offSetChangedListener
+    }
+
+    private fun checkLayout(student: Person.Student) {
+        isGridLayout = !isGridLayout
+        initRecyclerView(student)
     }
 
     private fun initRecyclerView(actualStudent: Person.Student) {
-        val currentAttendanceList = transformDates(actualStudent.attendanceList)
-        val recyclerView = binding.AttendanceListCalendar
+        val currentAttendanceList =
+            transformDates(actualStudent.attendanceList, binding.attendanceListCalendar.context)
+        val attendanceAdapter =
+            AttendanceRecyclerAdapter(currentAttendanceList, actualStudent, isGridLayout)
+        val recyclerView = binding.attendanceListCalendar
         val gridLayoutManager = GridLayoutManager(this, if (isGridLayout) 5 else 1)
 
         recyclerView.layoutManager = gridLayoutManager
-
-        recyclerView.adapter =
-            AttendanceRecyclerAdapter(currentAttendanceList, actualStudent, isGridLayout)
+        recyclerView.adapter = attendanceAdapter
 
         gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
-                return when ((recyclerView.adapter as AttendanceRecyclerAdapter).getItemViewType(
+                return when (attendanceAdapter.getItemViewType(
                     position
                 )) {
                     0 -> if (isGridLayout) 5 else 1

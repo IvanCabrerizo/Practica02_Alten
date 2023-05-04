@@ -7,21 +7,15 @@
     tools:context=".AttendanceActivity">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbarLayout"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:fitsSystemWindows="true"
-        android:theme="@style/ThemeOverlay.MaterialComponents.Dark">
+        android:id="@+id/attendanceAppbarLayout"
+        style="@style/appBarLayout">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/collapsingToolbar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
-            android:background="@color/md_theme_dark_outlineVariant"
+            android:id="@+id/attendanceCollapsingToolbar"
+            style="@style/collapsingToolBar"
             app:contentScrim="@color/md_theme_dark_outlineVariant"
-            app:expandedTitleMarginBottom="20dp"
-            app:expandedTitleMarginStart="15dp"
+            app:expandedTitleMarginBottom="@dimen/dp20"
+            app:expandedTitleMarginStart="@dimen/dp15"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,48 +24,38 @@
                 app:layout_collapseMode="parallax">
 
                 <ImageView
-                    android:id="@+id/avatar"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:contentDescription="Hola"
+                    android:id="@+id/attendanceImgStudentPhoto"
+                    style="@style/studentPhoto"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_marginStart="16dp"
-                    app:layout_constraintVertical_bias="0.5"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_launcher_background" />
+                    app:layout_constraintVertical_bias="@dimen/half_bias" />
 
                 <TextView
-                    android:id="@+id/nombre"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/attendanceLabelName"
+                    style="@style/attendanceLabelName"
+                    app:flow_verticalBias="@dimen/half_bias"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_marginStart="8dp"
-                    app:flow_verticalBias="0.5"
-                    app:layout_constraintStart_toEndOf="@id/avatar"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Gervasio Cabezas Pozillo" />
+                    app:layout_constraintStart_toEndOf="@id/attendanceImgStudentPhoto"
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
-                app:contentInsetStart="0dp"
-                app:contentInsetStartWithNavigation="0dp"
+                android:layout_height="@dimen/dp70"
+                app:contentInsetStart="@dimen/dp0"
+                app:contentInsetStartWithNavigation="@dimen/dp0"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/ThemeOverlay.MaterialComponents.Dark">
+
                 <TextView
-                    android:id="@+id/nombre2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/attendanceLabelCollapsedName"
+                    style="@style/attendanceLabelCollapsedName"
+                    app:flow_verticalBias="@dimen/half_bias"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_marginStart="16dp"
-                    app:flow_verticalBias="0.5"
-                    app:layout_constraintStart_toEndOf="@id/avatar"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Gervasio Cabezas Pozillo" />
+                    app:layout_constraintStart_toEndOf="@id/attendanceImgStudentPhoto"
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.appcompat.widget.Toolbar>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -79,29 +63,24 @@
                 android:layout_height="match_parent">
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/floatingButton"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    app:fabCustomSize="30dp"
-                    app:srcCompat="@drawable/ic_launcher_foreground"
-                    app:maxImageSize="40dp"
-                    app:layout_constraintBottom_toBottomOf="@id/guidelineBottom"
-                    app:layout_constraintEnd_toEndOf="@id/guidelineEnd" />
+                    android:id="@+id/attendanceBtnChangeLayout"
+                    android:layout_width="@dimen/dp30"
+                    android:layout_height="@dimen/dp30"
+                    app:fabCustomSize="@dimen/dp30"
+                    app:layout_constraintBottom_toBottomOf="@id/attendanceGuidelineBottom"
+                    app:layout_constraintEnd_toEndOf="@id/attendanceGuidelineEnd"
+                    app:maxImageSize="@dimen/dp20"
+                    app:srcCompat="@android:drawable/ic_dialog_dialer" />
 
                 <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guidelineEnd"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
+                    android:id="@+id/attendanceGuidelineEnd"
+                    style="@style/guidelineVertical"
                     app:layout_constraintGuide_end="@dimen/guideline_margin" />
 
                 <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guidelineBottom"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:id="@+id/attendanceGuidelineBottom"
+                    style="@style/guidelineHorizontal"
                     app:layout_constraintGuide_end="@dimen/guideline_margin" />
-
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -110,7 +89,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/AttendanceListCalendar"
+        android:id="@+id/attendanceListCalendar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />

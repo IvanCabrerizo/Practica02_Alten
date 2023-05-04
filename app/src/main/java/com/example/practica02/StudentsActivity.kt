@@ -21,15 +21,15 @@ class StudentsActivity : AppCompatActivity() {
         with(binding){
             setupAdapter()
             tabConfigure(studentList)
-            fragmentStudentBtnCalendar.setOnClickListener{
-                startActivity(newIntent(fragmentStudentBtnCalendar.context, activityStudentPagerAlumInfo.currentItem))
+            studentActivityBtnStudentCalendar.setOnClickListener{
+                startActivity(newIntent(studentActivityBtnStudentCalendar.context, studentActivityPagerAlumInfo.currentItem))
             }
         }
     }
 
     private fun ActivityStudentsBinding.tabConfigure(studentList: List<Person.Student>) {
         val tabLayoutMediator = TabLayoutMediator(
-            activityStudentTabLayoutNameVisor, activityStudentPagerAlumInfo
+            studentActivityTabLayoutNameVisor, studentActivityPagerAlumInfo
         ) { tab, position ->
             val studentNamePosition =
                 "${studentList[position].name} ${studentList[position].surname}"
@@ -39,7 +39,7 @@ class StudentsActivity : AppCompatActivity() {
     }
 
     private fun ActivityStudentsBinding.setupAdapter() {
-        activityStudentPagerAlumInfo.adapter = adapter
+        studentActivityPagerAlumInfo.adapter = adapter
     }
 
     private fun newIntent(context: Context, actualStudentPosition: Int): Intent{

@@ -1,14 +1,6 @@
 package com.example.practica02.repository
 
-import android.util.Log
 import com.example.practica02.model.Person
-
-fun updateAttendanceList(student: Person.Student, positionList: Int, newAttendanceType: String) {
-    val attendanceListCopy = student.attendanceList.toMutableList()
-    val attendanceCopy = attendanceListCopy[positionList].copy(typeAttendance = newAttendanceType)
-    attendanceListCopy[positionList] = attendanceCopy
-    student.attendanceList = attendanceListCopy
-}
 
 val studentList = listOf(
     Person.Student(
@@ -142,3 +134,10 @@ val studentList = listOf(
         attendancesSevilla,
     ),
 )
+
+fun updateAttendanceList(student: Person.Student, positionList: Int, newAttendanceType: String) {
+    val attendanceListCopy = student.attendanceList.toMutableList()
+    val attendanceCopy = attendanceListCopy[positionList].copy(typeAttendance = newAttendanceType)
+    attendanceListCopy[positionList] = attendanceCopy
+    student.attendanceList = attendanceListCopy
+}

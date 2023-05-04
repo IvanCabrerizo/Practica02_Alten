@@ -20,4 +20,112 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="labelDayListStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/dp8</item>
+        <item name="android:textSize">@dimen/sp25</item>
+    </style>
+
+    <style name="labelMonthHeaderStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/dp8</item>
+        <item name="android:layout_marginBottom">@dimen/dp8</item>
+        <item name="android:textSize">@dimen/sp25</item>
+    </style>
+
+    <style name="labelActualDay">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">@dimen/dp16</item>
+        <item name="android:textColor">@color/md_theme_light_onSurfaceVariant</item>
+        <item name="android:textSize">@dimen/sp25</item>
+    </style>
+
+    <style name="labelFormation">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:text">@string/attendance_dialog_formation</item>
+        <item name="android:textSize">@dimen/sp25</item>
+    </style>
+
+    <style name="labelHolidays">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/attendance_dialog_holidays</item>
+        <item name="android:textSize">@dimen/sp25</item>
+        <item name="android:text">@string/attendance_dialog_holidays</item>
+    </style>
+
+    <style name="labelStudyCenter">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/attendance_dialog_center_study</item>
+        <item name="android:textSize">@dimen/sp25</item>
+        <item name="android:text">@string/attendance_dialog_class</item>
+    </style>
+
+    <style name="guidelineVertical">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="guidelineHorizontal">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="cancelBtnDialog">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/dp40</item>
+        <item name="android:layout_marginTop">@dimen/dp16</item>
+        <item name="android:text">@string/attendance_dialog_btn_cancelar</item>
+    </style>
+
+    <style name="calendarBtnStudentActivity">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:contentDescription">@string/calendar_student_description</item>
+        <item name="android:src">@android:drawable/ic_menu_my_calendar</item>
+    </style>
+
+    <style name="appBarLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dp200</item>
+        <item name="android:fitsSystemWindows">true</item>
+        <item name="android:theme">@style/ThemeOverlay.MaterialComponents.Dark</item>
+    </style>
+
+    <style name="collapsingToolBar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:fitsSystemWindows">true</item>
+        <item name="android:background">@color/md_theme_dark_outlineVariant</item>
+    </style>
+
+    <style name="studentPhoto">
+        <item name="android:layout_width">@dimen/dp80</item>
+        <item name="android:layout_height">@dimen/dp80</item>
+        <item name="android:layout_marginStart">@dimen/dp16</item>
+        <item name="android:contentDescription">@string/attendance_activity_student_photo</item>
+        <item name="android:scaleType">centerCrop</item>
+        <item name="android:src">@drawable/ic_launcher_background</item>
+    </style>
+
+    <style name="attendanceLabelName">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/dp8</item>
+    </style>
+
+    <style name="attendanceLabelCollapsedName">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/dp16</item>
+    </style>
+
+
 </resources>
