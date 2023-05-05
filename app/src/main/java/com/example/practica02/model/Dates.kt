@@ -16,5 +16,6 @@ sealed class AttendanceInfo {
         val nameDay: String,
         var typeAttendance: String,
         val attendanceListPosition: Int,
+        val correspondingMonth: String,
     ) : AttendanceInfo()
 }

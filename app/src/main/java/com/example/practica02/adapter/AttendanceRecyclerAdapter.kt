@@ -3,9 +3,9 @@ package com.example.practica02.adapter
 
 import android.app.AlertDialog
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.practica02.R
@@ -28,12 +28,12 @@ class AttendanceRecyclerAdapter(
         val layoutInflater = LayoutInflater.from(parent.context)
         return when (viewType) {
             0 -> {
-                val monthBinding = MonthHeaderItemBinding.inflate(layoutInflater , parent, false)
+                val monthBinding = MonthHeaderItemBinding.inflate(layoutInflater, parent, false)
                 MonthViewHolder(monthBinding)
             }
 
             1 -> {
-                val dayBinding = DayListItemBinding.inflate(layoutInflater , parent, false)
+                val dayBinding = DayListItemBinding.inflate(layoutInflater, parent, false)
                 DayViewHolder(dayBinding)
             }
 
@@ -57,39 +57,65 @@ class AttendanceRecyclerAdapter(
         }
     }
 
-    inner class MonthViewHolder(private val monthBinding: MonthHeaderItemBinding) : RecyclerView.ViewHolder(monthBinding.root) {
+    inner class MonthViewHolder(private val monthBinding: MonthHeaderItemBinding) :
+        RecyclerView.ViewHolder(monthBinding.root) {
         fun bind(item: AttendanceInfo.Month) {
-            monthBinding.textView1.text = item.nameMonth
+            monthBinding.monthHeaderItemLabelMonthName.text = item.nameMonth
         }
     }
 
-    inner class DayViewHolder(private val dayBinding: DayListItemBinding) : RecyclerView.ViewHolder(dayBinding.root) {
+    inner class DayViewHolder(private val dayBinding: DayListItemBinding) :
+        RecyclerView.ViewHolder(dayBinding.root) {
         fun bind(item: AttendanceInfo.Day) {
-            val completeDayName = "${item.nameDay} ${item.numberDay}"
+            val completeDayName = "${item.nameDay} ${item.numberDay} de ${item.correspondingMonth}"
+            val shortMessage = "El dia ${item.numberDay} de ${item.correspondingMonth} estuvo de ${item.typeAttendance}"
             val shortName = "${item.nameDay.first()} ${item.numberDay}"
             val previousState = item.typeAttendance
             val color = ContextCompat.getColor(
-                dayBinding.textView1.context, when (item.typeAttendance) {
+                dayBinding.dayListItemLabelDayName.context, when (item.typeAttendance) {
                     "Vacaciones" -> R.color.attendance_dialog_holidays
                     "Clases" -> R.color.attendance_dialog_center_study
                     else -> R.color.attendance_dialog_center_formation
                 }
             )
-            dayBinding.textView1.setTextColor(color)
 
-            if (isGridLayout) {
-                dayBinding.textView1.text = shortName
-            } else {
-                dayBinding.textView1.text = completeDayName
+            with(dayBinding){
+                dayListItemLabelDayName.setTextColor(color)
+                dayListItemLabelDayName.text = if (isGridLayout) shortName else completeDayName
+                dayListItemLabelDayName.setOnClickListener {
+                    Toast.makeText(dayListItemLabelDayName.context, shortMessage, Toast.LENGTH_SHORT).show()
+                }
+                showLongAlertDialog(this, this@DayViewHolder, completeDayName, item, previousState)
             }
+        }
 
-            dayBinding.textView1.setOnClickListener {
+        private fun showUndoDialog(item: AttendanceInfo.Day, attendanceType: String, position: Int) {
+            Snackbar.make(
+                dayBinding.dayListItemLabelDayName,
+                "Asistencia cambiada a $attendanceType",
+                Snackbar.LENGTH_LONG
+            )
+            .setAction("Deshacer") {
+                updateAttendanceList(actualStudent, item.attendanceListPosition, attendanceType)
+                item.typeAttendance = attendanceType
+                notifyItemChanged(position)
+            }
+            .show()
+        }
 
-                val attendanceTypeDialogBuilder = AlertDialog.Builder(itemView.context)
-                val attendanceDialogView = LayoutInflater.from(itemView.context)
+        private fun showLongAlertDialog(
+            dayListItemBinding: DayListItemBinding,
+            dayViewHolder: DayViewHolder,
+            completeDayName: String,
+            item: AttendanceInfo.Day,
+            previousState: String
+        ) {
+            dayListItemBinding.dayListItemLabelDayName.setOnLongClickListener {
+
+                val attendanceTypeDialogBuilder = AlertDialog.Builder(dayViewHolder.itemView.context)
+                val attendanceDialogView = LayoutInflater.from(dayViewHolder.itemView.context)
                     .inflate(R.layout.attendance_type_dialog, null)
                 attendanceTypeDialogBuilder.setView(attendanceDialogView)
-
 
                 val attendanceTypeDialog = attendanceTypeDialogBuilder.create()
                 attendanceTypeDialog.show()
@@ -103,8 +129,8 @@ class AttendanceRecyclerAdapter(
                 formationLabel.setOnClickListener {
                     updateAttendanceList(actualStudent, item.attendanceListPosition, "Formación")
                     item.typeAttendance = "Formación"
-                    showSnackbar(item, previousState, adapterPosition)
-                    notifyItemChanged(adapterPosition)
+                    dayViewHolder.showUndoDialog(item, previousState, dayViewHolder.adapterPosition)
+                    notifyItemChanged(dayViewHolder.adapterPosition)
                     attendanceTypeDialog.dismiss()
                 }
 
@@ -113,8 +139,8 @@ class AttendanceRecyclerAdapter(
                 holidaysLabel.setOnClickListener {
                     updateAttendanceList(actualStudent, item.attendanceListPosition, "Vacaciones")
                     item.typeAttendance = "Vacaciones"
-                    showSnackbar(item, previousState, adapterPosition)
-                    notifyItemChanged(adapterPosition)
+                    dayViewHolder.showUndoDialog(item, previousState, dayViewHolder.adapterPosition)
+                    notifyItemChanged(dayViewHolder.adapterPosition)
                     attendanceTypeDialog.dismiss()
                 }
 
@@ -123,8 +149,8 @@ class AttendanceRecyclerAdapter(
                 centerStudyLabel.setOnClickListener {
                     updateAttendanceList(actualStudent, item.attendanceListPosition, "Clases")
                     item.typeAttendance = "Clases"
-                    showSnackbar(item, previousState, adapterPosition)
-                    notifyItemChanged(adapterPosition)
+                    dayViewHolder.showUndoDialog(item, previousState, dayViewHolder.adapterPosition)
+                    notifyItemChanged(dayViewHolder.adapterPosition)
                     attendanceTypeDialog.dismiss()
                 }
 
@@ -133,22 +159,8 @@ class AttendanceRecyclerAdapter(
                 cancelButton.setOnClickListener {
                     attendanceTypeDialog.dismiss()
                 }
+                return@setOnLongClickListener true
             }
-        }
-
-        private fun showSnackbar(item: AttendanceInfo.Day, attendanceType: String, position: Int) {
-            val snackbar = Snackbar.make(
-                dayBinding.textView1,
-                "Asistencia cambiada a $attendanceType",
-                Snackbar.LENGTH_LONG
-            )
-
-            snackbar.setAction("Deshacer") {
-                updateAttendanceList(actualStudent, item.attendanceListPosition, attendanceType)
-                item.typeAttendance = attendanceType
-                notifyItemChanged(position)
-            }
-            snackbar.show()
         }
     }
 }

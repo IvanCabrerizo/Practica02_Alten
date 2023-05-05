@@ -173,7 +173,7 @@ fun transformDates(listAttendance: List<Attendance>, context: Context): MutableL
         }
         val dayNumber = calendar.get(Calendar.DAY_OF_MONTH)
 
-        val day = AttendanceInfo.Day(dayNumber, dayName, listAttendance[attendancePosition].typeAttendance, attendancePosition)
+        val day = AttendanceInfo.Day(dayNumber, dayName, listAttendance[attendancePosition].typeAttendance, attendancePosition, monthName)
         val month = AttendanceInfo.Month(monthName)
 
         if (month !in listAttendanceInfo) {

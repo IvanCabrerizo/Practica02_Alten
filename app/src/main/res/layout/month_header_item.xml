@@ -5,7 +5,7 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/monthHeaderItemLabelMonthName"
         style="@style/labelMonthHeaderStyle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
