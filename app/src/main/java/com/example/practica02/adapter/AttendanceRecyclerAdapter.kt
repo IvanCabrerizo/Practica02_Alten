@@ -92,7 +92,7 @@ class AttendanceRecyclerAdapter(
         private fun showUndoDialog(item: AttendanceInfo.Day, attendanceType: String, position: Int) {
             Snackbar.make(
                 dayBinding.dayListItemLabelDayName,
-                "Asistencia cambiada a $attendanceType",
+                "Asistencia cambiada a ${item.typeAttendance}",
                 Snackbar.LENGTH_LONG
             )
             .setAction("Deshacer") {
